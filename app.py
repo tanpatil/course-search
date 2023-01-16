@@ -101,7 +101,7 @@ def main():
 	# Streamlit	
 	st.title("Triton Courses")
 	st.write("Semantic search lets you search with meaning - try 'cooking' or 'animal doctor'. [more](https://learn.microsoft.com/en-us/azure/search/semantic-search-overview)")
-	st.write("[github](https://github.com/punnkam/ucsd-courses), my [twitter](https://twitter.com/punnkam)")
+	st.write("[github](https://github.com/punnkam/ucsd-courses), [twitter](https://twitter.com/punnkam)")
 
 	c1, c2 = st.columns((12, 1))
     

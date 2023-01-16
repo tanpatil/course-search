@@ -1,0 +1,7 @@
+/venv
+.env
+__pycache__
+data/embeddings.pkl
+vercel.json
+.vercel
+.DS_Store

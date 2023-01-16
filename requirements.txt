@@ -1,0 +1,8 @@
+pandas
+python-dotenv
+numpy
+matplotlib
+tqdm
+sentence-transformers
+streamlit
+pinecone-client

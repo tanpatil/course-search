@@ -10,11 +10,16 @@ from sentence_transformers import SentenceTransformer, util
 import time
 import streamlit as st
 import re
+from PIL import Image
 
 load_dotenv()
 key = os.getenv("PINECONE_KEY")
 
 pinecone.init(api_key=key, environment="us-west1-gcp")
+im = Image.open("site.png")
+st.set_page_config(
+		page_title="Triton Search",
+		page_icon=im)
 
 def setup():
 	pinecone.create_index("courses", dimension=768, metric="cosine", pod_type="p1")
@@ -63,7 +68,7 @@ def search_pinecone(query, topk, model):
 @st.cache(allow_output_mutation=True)
 def load_embeddings():
     #Load sentences & embeddings from disc
-	with open('./data/embeddings.pkl', "rb") as fIn:
+	with open('./data/embeddings_dbert.pkl', "rb") as fIn:
 		stored_data = pickle.load(fIn)
 		stored_sentences = stored_data['sentences']
 		stored_embeddings = stored_data['embeddings']
@@ -71,7 +76,7 @@ def load_embeddings():
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-	model = SentenceTransformer('sentence-transformers/gtr-t5-xl')
+	model = SentenceTransformer('multi-qa-distilbert-cos-v1')
 	return model
 
 def main(): 
@@ -80,41 +85,39 @@ def main():
 	
 	# setup() # uncomment to create index
 
-	# load data
-	# corpus, embeddings = load_embeddings()
-
-	# print(embeddings.shape)
+	# corpus, embeddings = load_embeddings() # uncomment to load embeddings from binary
 	
 	# insert_pinecone(embeddings.tolist()) # uncomment to insert into pinecone
 
 	# store_hashtable(corpus) # uncomment to store hashtable into binary
+
 	tic = time.perf_counter()
 	model = load_model()
 	toc = time.perf_counter()
 	print(f"Time to load model: {toc - tic:0.4f} seconds")
 
-	hashtable = load_hashtable() # uncomment to load hashtable from binary
+	hashtable = load_hashtable() 
 
 	# Streamlit	
-	st.title("Triton Course Search")
+	st.title("Triton Courses")
+	st.write("Semantic search lets you search with meaning - try 'cooking' or 'animal doctor'. [more](https://learn.microsoft.com/en-us/azure/search/semantic-search-overview)")
+	st.write("[twitter](https://twitter.com/xpunnk), [github](https://github.com/punnkam/ucsd-courses), [linkedin](https://www.linkedin.com/in/punnkam/)")
+
+	c1, c2 = st.columns((12, 1))
     
     # user input
-	user_input = st.text_input(label="Search box", placeholder="quantum AI shape rotating cryptography")
+	with c1:
+		user_input = st.text_input(label="Search box", placeholder="quantum AI shape rotating cryptography")
     
     # filters
-	num_results = st.slider("Number of search results", 10, 50, 5)
+	with c2:
+		num_results = st.text_input("Results", 10)
 	
 	if user_input:
-		results = search_pinecone(user_input, num_results, model)
+		results = search_pinecone(user_input, int(num_results), model)
 		for result in results['matches']:
 			# write results to streamlit
 			st.write(hashtable[result['id']])
 		
-
-	
-	
-
-
-
-
-main()
+if __name__ == "__main__":
+	main()

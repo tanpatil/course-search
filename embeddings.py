@@ -39,11 +39,12 @@ def main():
     
     # RUN MODEL
     model = SentenceTransformer('multi-qa-distilbert-cos-v1')
-    embeddings = model.encode(sentences, convert_to_tensor=True, show_progress_bar=True)
+    embeddings = model.encode(sentences, show_progress_bar=True)
     
-    store_embeddings(corpus_embeddings, corpus)
+    store_embeddings(embeddings, sentences)
     
     corpus, corpus_embeddings  = load_embeddings()
+    print(corpus_embeddings.shape)
 
     
     

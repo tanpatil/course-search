@@ -5,3 +5,4 @@ data/embeddings.pkl
 vercel.json
 .vercel
 .DS_Store
+geckodriver.log

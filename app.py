@@ -99,8 +99,8 @@ def main():
 	hashtable = load_hashtable() 
 
 	# Streamlit	
-	st.title("Triton Courses")
-	st.write("[Semantic search](https://learn.microsoft.com/en-us/azure/search/semantic-search-overview) lets you search with meaning - try 'what is love?' or 'website coding'.")
+	st.title("Triton Spanner")
+	st.write("Built with [Semantic search](https://learn.microsoft.com/en-us/azure/search/semantic-search-overview) to let you search with meaning - try 'what is love?' or 'website coding'.")
 	st.write("[github](https://github.com/punnkam/ucsd-courses), [twitter](https://twitter.com/xpunnk)")
 
 	c1, c2 = st.columns((12, 1))

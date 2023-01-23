@@ -1,10 +1,8 @@
-## course search for UCSD
+## Course Directory for UCSD
 
-semantic search of UCSD courses.
+Semantic search of UCSD courses built BERT pre-trained models and Pinecone vector database.
 
 ![Triton Spanner Page](screenshot.png)
-
-built with BERT pre-trained models and Pinecone (vector database).
 
 to use
 
